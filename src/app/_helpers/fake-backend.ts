@@ -44,10 +44,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 // get id from request url
                 // tslint:disable-next-line:prefer-const
                 let urlParts = request.url.split('/');
-                let id = parseInt(urlParts[urlParts.length - 1]);
+            // tslint:disable-next-line:radix
+                const id = parseInt(urlParts[urlParts.length - 1]);
 
                 // only allow normal users access to their own record
                 const currentUser = users.find(x => x.role === role);
+                // tslint:disable-next-line:curly
                 if (id !== currentUser.id && role !== Role.Admin) return unauthorised();
 
                 const user = users.find(x => x.id === id);
@@ -56,6 +58,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // get all users (admin only)
             if (request.url.endsWith('/users') && request.method === 'GET') {
+                // tslint:disable-next-line:curly
                 if (role !== Role.Admin) return unauthorised();
                 return ok(users);
             }
@@ -63,7 +66,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             // pass through any requests not handled above
             return next.handle(request);
         }))
-        // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
+        // call materialize and dematerialize to ensure delay even if an error is thrown
+        // (https://github.com/Reactive-Extensions/RxJS/issues/648)
         .pipe(materialize())
         .pipe(delay(500))
         .pipe(dematerialize());

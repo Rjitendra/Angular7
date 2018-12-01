@@ -7,7 +7,7 @@ import { User } from '../_models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    apiUrl:any;
+    apiUrl: any;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
@@ -15,6 +15,7 @@ export class AuthenticationService {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.apiUrl = 'http://localhost:4000';
+        alert('auth service');
     }
 
     public get currentUserValue(): User {

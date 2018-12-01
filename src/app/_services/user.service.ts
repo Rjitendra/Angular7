@@ -12,7 +12,8 @@ export class UserService {
     getAll() {
 
         // return this.http.get<User[]>(`${config.apiUrl}/users`);http://localhost:4000
-        return this.http.get<User[]>(`${this.apiUrl}/users`)
+        return this.http.get<User[]>(`${this.apiUrl}/users`);
+
     }
 
     getById(id: number) {
