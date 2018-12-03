@@ -9,7 +9,7 @@ const appRoutes: Routes = [
     {
         path: '',
         component: HomeComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard]// Use AuthGuard for validate Login Details 
     },
     {
         path: 'admin',
